@@ -138,36 +138,6 @@ boton_crear_cuenta = tk.Button(ventana_login, text="Crear cuenta", bg="#8B7FD0",
 boton_crear_cuenta.grid(row=8, column=2, padx=10, pady=5)
 
 
-def iniciosesion():
-    usuarioinicio = cajausuario.get()
-    try:
-       conexion = sqlite3.connect("ChiCoin")
-       cursor = conexion.cursor()
-       cursor.execute("SELECT USUARIO, CORREO, PASSWORD FROM UsuariosChi WHERE USUARIO = ?",(usuarioinicio,))
-       contrasenas = cursor.fetchall()
-       contrseñaingresada=cajapass.get()
-       for contrasena in contrasenas:
-          contraseñareal=(contrasena[2])
-          conexion.commit()
-    except:
-        messagebox.showwarning("¡Atención!", "Error en la Búsqueda")
-    if contrseñaingresada==contraseñareal:
-        messagebox.showwarning("Acceso concedido","Contraseña correcta")
-        ventana3 = tk.Toplevel(ventana1)
-        ventana3.title("Hola bienvenido de nuevo")
-        ventana3.geometry("400x400")
-        ventana3.config(bg="skyblue")
-        ventana3.geometry("+{}+{}".format((ventana3.winfo_screenwidth() - ventana3.winfo_reqwidth()) // 2, (ventana3.winfo_screenheight() - ventana3.winfo_reqheight()) // 3))
-        ruta_imagen = "C:\\Users\\Rodrigo Oropeza\\Desktop\\RecursosPython\\Dodge.png"
-        imagen = PhotoImage(file=ruta_imagen)
-        etiqueta_imagen = tk.Label(ventana3, image=imagen)
-        etiqueta_imagen.image = imagen
-        etiqueta_imagen.pack()
-
-    elif contrseñaingresada==None:
-        messagebox.showerror("Error","Campo de contraseña vacio")
-    else:
-        messagebox.showwarning("Acceso denegado","Contraseña incorrecta")
 
 
 
