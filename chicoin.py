@@ -20,9 +20,6 @@ from tkinter import messagebox
 
 #ventana login
 
-ventana_login = tk.Tk()
-ventana_login.title("ChiCoin")
-ventana_login.config(bg="#5A51A0")
 
 #variable fuente
 font_title = ("Karmatic Arcade", 16)
@@ -51,7 +48,7 @@ def crear_cuenta():
     label_crear_contraseña = tk.Label(ventana_crear_cuenta, text="Crea tu contraseña:", fg="#FFFFFF", bg="#5A51A0", font=font_title_log)
     label_crear_contraseña.grid(row=5, column=2, padx=10, pady=5)
     
-    caja_texto_crear_contraseña = tk.Entry(ventana_crear_cuenta, bg="#BCADFF", relief="ridge", fg="#FFFFFF")
+    caja_texto_crear_contraseña = tk.Entry(ventana_crear_cuenta, bg="#BCADFF", relief="ridge", fg="#FFFFFF", show="*")
     caja_texto_crear_contraseña.grid(row=6, column=2, padx=10, pady=5)
     
     label_confirmar_registro = tk.Label(ventana_crear_cuenta, text="Confirma tu cuenta en el siguiente boton:", fg="#FFFFFF", bg="#5A51A0", font=font_title_log)
@@ -79,13 +76,13 @@ def crear_cuenta():
     boton_confirmar.grid(row=8, column=2, padx=10, pady=10)
 
 def iniciosesion():
-    usuarioinicio = caja_texto_user.get()
+    usuarioinicio = caja_user.get()
     try:
        conexion = sqlite3.connect("ChiCoin")
        cursor = conexion.cursor()
        cursor.execute("SELECT USUARIO, CORREO, PASSWORD FROM UsuariosChi WHERE USUARIO = ?",(usuarioinicio,))
        contrasenas = cursor.fetchall()
-       contrseñaingresada=caja_texto_contraseña.get()
+       contrseñaingresada=caja_contraseña.get()
        for contrasena in contrasenas:
           contraseñareal=(contrasena[2])
           conexion.commit()
@@ -93,14 +90,14 @@ def iniciosesion():
         messagebox.showwarning("¡Atención!", "Error en la Búsqueda")
     if contrseñaingresada==contraseñareal:
         messagebox.showwarning("Acceso concedido","Contraseña correcta")
-        ventana3 = tk.Toplevel(ventana1)
-        ventana3.title("Hola bienvenido de nuevo")
-        ventana3.geometry("400x400")
-        ventana3.config(bg="skyblue")
-        ventana3.geometry("+{}+{}".format((ventana3.winfo_screenwidth() - ventana3.winfo_reqwidth()) // 2, (ventana3.winfo_screenheight() - ventana3.winfo_reqheight()) // 3))
+        ventana_mina = tk.Toplevel(ventana1)
+        ventana_mina.title("Hola bienvenido de nuevo")
+        ventana_mina.geometry("800x800")
+        ventana_mina.config(bg="#5A51A0")
+        ventana_mina.geometry("+{}+{}".format((ventana_mina.winfo_screenwidth() - ventana_mina.winfo_reqwidth()) // 2, (ventana_mina.winfo_screenheight() - ventana_mina.winfo_reqheight()) // 3))
         ruta_imagen = "C:\\Users\\Rodrigo Oropeza\\Desktop\\RecursosPython\\Dodge.png"
         imagen = PhotoImage(file=ruta_imagen)
-        etiqueta_imagen = tk.Label(ventana3, image=imagen)
+        etiqueta_imagen = tk.Label(ventana_mina, image=imagen)
         etiqueta_imagen.image = imagen
         etiqueta_imagen.pack()
 
@@ -108,6 +105,11 @@ def iniciosesion():
         messagebox.showerror("Error","Campo de contraseña vacio")
     else:
         messagebox.showwarning("Acceso denegado","Contraseña incorrecta")
+
+ventana_login = tk.Tk()
+ventana_login.title("ChiCoin")
+ventana_login.config(bg="#5A51A0")
+
 
 
 
@@ -119,14 +121,14 @@ label_bienvenida.grid(row=1, column=2, padx=10, pady=10)
 label_usuario = tk.Label(ventana_login,text="Usuario", fg="#FFFFFF", bg="#5A51A0", font=font_title_log)
 label_usuario.grid(row=2, column=2, padx=10, pady=5)
 
-caja_texto_user = tk.Entry(ventana_login, bg="#BCADFF", relief="ridge", fg="#FFFFFF")
-caja_texto_user.grid(row=3, column=2, padx=10, pady=5)
+caja_user = tk.Entry(ventana_login, bg="#BCADFF", relief="ridge", fg="#FFFFFF")
+caja_user.grid(row=3, column=2, padx=10, pady=5)
 
-label_pass = tk.Label(ventana_login, text="Contraseña", bg="#5A51A0", fg="#FFFFFF", font=font_title_log)
+label_pass = tk.Label(ventana_login, text="Contraseña", bg="#5A51A0", fg="#FFFFFF", font=font_title_log,)
 label_pass.grid(row=4, column=2, padx=10, pady=5 )
 
-caja_texto_pass = tk.Entry(ventana_login, bg="#BCADFF", relief="ridge")
-caja_texto_pass.grid(row=5, column=2, padx=10, pady=5)
+caja_pass = tk.Entry(ventana_login, bg="#BCADFF", relief="ridge", show="*")
+caja_pass.grid(row=5, column=2, padx=10, pady=5)
 
 boton_iniciar_sesion = tk.Button(ventana_login, text="Iniciar Sesion", bg="#8B7FD0", relief="groove", command=iniciosesion, fg="#FFFFFF")
 boton_iniciar_sesion.grid(row=6, column=2, padx=10, pady=5)
