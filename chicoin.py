@@ -69,7 +69,7 @@ def crear_cuenta():
             conexion = sqlite3.connect("ChiCoin")
             cursor = conexion.cursor()
             cursor.execute("CREATE TABLE IF NOT EXISTS UsuariosChi (USUARIO TEXT PRIMARY KEY, CORREO TEXT, PASSWORD TEXT)")
-            cursor.execute("INSERT INTO UsuariosPOO VALUES (?,?,?)", (usuario, correo, contraseña))
+            cursor.execute("INSERT INTO UsuariosChi VALUES (?,?,?)", (usuario, correo, contraseña))
             conexion.commit()
             messagebox.showinfo("Conexion con BD con exito","Usuario Registrado con exito")
         except:
@@ -83,7 +83,7 @@ def iniciosesion():
     try:
        conexion = sqlite3.connect("ChiCoin")
        cursor = conexion.cursor()
-       cursor.execute("SELECT USUARIO, CORREO, PASSWORD FROM UsuariosPOO WHERE USUARIO = ?",(usuarioinicio,))
+       cursor.execute("SELECT USUARIO, CORREO, PASSWORD FROM UsuariosChi WHERE USUARIO = ?",(usuarioinicio,))
        contrasenas = cursor.fetchall()
        contrseñaingresada=caja_texto_contraseña.get()
        for contrasena in contrasenas:
@@ -141,9 +141,9 @@ boton_crear_cuenta.grid(row=8, column=2, padx=10, pady=5)
 def iniciosesion():
     usuarioinicio = cajausuario.get()
     try:
-       conexion = sqlite3.connect("ProyectoPOO2024")
+       conexion = sqlite3.connect("ChiCoin")
        cursor = conexion.cursor()
-       cursor.execute("SELECT USUARIO, CORREO, PASSWORD FROM UsuariosPOO WHERE USUARIO = ?",(usuarioinicio,))
+       cursor.execute("SELECT USUARIO, CORREO, PASSWORD FROM UsuariosChi WHERE USUARIO = ?",(usuarioinicio,))
        contrasenas = cursor.fetchall()
        contrseñaingresada=cajapass.get()
        for contrasena in contrasenas:
