@@ -1,6 +1,7 @@
 #Importacion de libreria
 import tkinter as tk
-
+import sqlite3
+from tkinter import messagebox
 '''
 
 ------PALETA COLOR MORADO-------
@@ -56,8 +57,7 @@ def crear_cuenta():
     label_confirmar_registro = tk.Label(ventana_crear_cuenta, text="Confirma tu cuenta en el siguiente boton:", fg="#FFFFFF", bg="#5A51A0", font=font_title_log)
     label_confirmar_registro.grid(row=7, column=2, padx=10, pady=5)
     
-    boton_confirmar = tk.Button(ventana_crear_cuenta,text="Crea cuenta", bg="#8B7FD0", relief="groove", fg="#FFFFFF", command=re)
-    boton_confirmar.grid(row=8, column=2, padx=10, pady=10)
+   
     
     def registrar_usuario():
         #Obtener los valores de los campos
@@ -74,7 +74,9 @@ def crear_cuenta():
             messagebox.showinfo("Conexion con BD con exito","Usuario Registrado con exito")
         except:
             messagebox.showinfo("Error","Error en la conexion con la base de datos")
-
+            
+    boton_confirmar = tk.Button(ventana_crear_cuenta,text="Crea cuenta", bg="#8B7FD0", relief="groove", fg="#FFFFFF", command=registrar_usuario)
+    boton_confirmar.grid(row=8, column=2, padx=10, pady=10)
 
 def iniciosesion():
     usuarioinicio = caja_texto_user.get()
